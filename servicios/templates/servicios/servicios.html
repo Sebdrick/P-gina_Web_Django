@@ -1,0 +1,67 @@
+{% extends "ProyectoSebasApp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <style>
+        /* CSS para alinear la imagen y el cuadro de texto */
+        .section-content {
+            display: flex;
+            align-items: center; /* Centra verticalmente el texto con respecto a la imagen */
+            margin-bottom: 30px; /* Espaciado entre secciones */
+        }
+
+        /* CSS para alternar la dirección de los elementos en filas sucesivas */
+        .row-odd {
+            flex-direction: row;
+        }
+        .row-even {
+            flex-direction: row-reverse;
+        }
+
+        /* Estilo para asegurar que las imágenes tengan un tamaño fijo */
+        .intro-img {
+            width: 700px; /* Tamaño fijo para el ancho de la imagen */
+            height: 400px; /* Tamaño fijo para el alto de la imagen */
+            object-fit: cover; /* Ajusta la imagen para cubrir el área del contenedor */                           
+        }
+
+        /* Estilo para el texto de fondo */
+        .intro-text {
+            background-color: rgba(0, 32, 63, 1);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%; /* Asegura que el texto tenga el mismo ancho en la columna */
+            box-sizing: border-box; /* Incluye el padding en el ancho total */
+        }
+        
+        .intro-text h2 {
+            margin: 0; /* Elimina márgenes para una alineación más precisa */
+        }
+    </style>
+
+    {% for servicio in servicios %}
+    
+    <section class="page-section clearfix">
+        <div class="container">
+            <div class="section-content {% if forloop.counter|divisibleby:2 %}row-even{% else %}row-odd{% endif %}">
+                <div class="col-md-6">
+                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{ servicio.Imagen.url }}" alt="">
+                </div>
+                <div class="col-md-6">
+                    <div class="intro-text text-center p-5 rounded">
+                        <h2 class="section-heading mb-4">
+                            <span class="section-heading-lower">{{ servicio.Titulo }}</span>
+                            <span class="section-heading-upper" style="display: block; margin-top: 13px; text-transform: none;">{{ servicio.Contenido }}</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endfor %}
+
+{% endblock %}

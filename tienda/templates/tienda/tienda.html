@@ -1,0 +1,62 @@
+{% extends "ProyectoSebasApp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .card {
+        margin-bottom: 20px;
+        height: 400px; 
+    }
+    .card img {
+        width: 100%;
+        height: 150px; 
+        object-fit: cover;
+    }
+    .card-body {
+        text-align: center;
+    }
+    .card-title {
+        font-size: 1em;
+        margin-bottom: 5px;
+    }
+    .card-text {
+        font-size: 0.9em;
+    }
+    .card-footer {
+        text-align: center;
+    }
+    .btn-success {
+        margin-top: 10px;
+    }
+    .col-md-4, .col-lg-3 {
+        padding: 8px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+    
+    {% for producto in productos %}
+        {% if forloop.counter0|divisibleby:4 and not forloop.first %}
+            </div><div class="row">
+        {% endif %}
+        <div class="col-md-4 col-lg-3"> 
+            <div class="card">
+                <img src="{{ producto.Imagen.url }}" class="card-img-top" alt="{{ producto.Nombre }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.Nombre }}</h5>
+                    <p class="card-text">{{ producto.Contenido }}</p>
+                    <p class="card-text">$&nbsp;{{ producto.Precio|floatformat:2 }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'carro:agregar' producto.id %}" class="btn btn-custom-blue">Agregar al carro</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

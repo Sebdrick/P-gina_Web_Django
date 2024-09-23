@@ -1,0 +1,21 @@
+{% extends "ProyectoSebasApp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="contenedorFormulario">
+    {% if "valido" in request.GET %}
+    <p style="color: white;">Información enviada correctamente</p>
+    {% endif %}
+    <form action="" method="POST" enctype="multipart/form-data" style="text-align: center;">
+        {% csrf_token %}
+        <table style="color: white;">
+            {{ miFormulario.as_table }}
+        </table>
+        <input type="submit" value="Enviar" style="width: 150px;">
+        <input type="reset" value="Restablecer" style="width: 150px; margin-left: 10px;">
+    </form>
+</div>
+
+{% endblock %}
